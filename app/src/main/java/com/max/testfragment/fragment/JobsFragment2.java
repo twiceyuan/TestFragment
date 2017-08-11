@@ -1,16 +1,15 @@
 package com.max.testfragment.fragment;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.flyco.tablayout.SlidingTabLayout;
 import com.max.testfragment.R;
 import com.max.testfragment.model.ChannelItem;
 
@@ -27,7 +26,7 @@ public class JobsFragment2 extends Fragment implements ViewPager.OnPageChangeLis
     private View mRootView;
     private static JobsFragment2 fragment;
 
-    private SlidingTabLayout mTab;
+    private TabLayout mTab;
     private ViewPager mViewPager;
     private int mCurIndex = 0;
     private ArrayList<Fragment> mFragmentLists = new ArrayList<>();//存储所有fragment
@@ -51,7 +50,7 @@ public class JobsFragment2 extends Fragment implements ViewPager.OnPageChangeLis
     }
 
     private void initView(View view) {
-        mTab = (SlidingTabLayout) view.findViewById(R.id.tab);
+        mTab = (TabLayout) view.findViewById(R.id.tab);
         mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
         mViewPager.addOnPageChangeListener(this);
     }
@@ -103,9 +102,10 @@ public class JobsFragment2 extends Fragment implements ViewPager.OnPageChangeLis
 
     protected void initTab() {
         refreshFragments();
-        mMyFragmentPagerAdapter = new MyFragmentPagerAdapter(getActivity().getSupportFragmentManager());
+        mMyFragmentPagerAdapter = new MyFragmentPagerAdapter(getChildFragmentManager());
         mViewPager.setAdapter(mMyFragmentPagerAdapter);
-        mTab.setViewPager(mViewPager, getTitles(), getActivity(), mFragmentLists);
+        mTab.setupWithViewPager(mViewPager);
+        // mTab.setViewPager(mViewPager, getTitles(), getActivity(), mFragmentLists);
     }
 
     private String[] getTitles(){
